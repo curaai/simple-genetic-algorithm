@@ -2,21 +2,26 @@ import random
 
 
 class Gene:
-    def __init__(self, parent):
-        self.list = "abcdef"
+    def __init__(self, parent, generation):
+        self.list = "qwertyuiopasdfghjkklzxcvbnm"
 
         self.score = 0
         self.parent = parent
         self.chromosome = ' ' * len(parent)
+        self.generation = generation
 
         self.legacy()
         self.generate()
 
     def legacy(self):
-        n_legacy = random.randint(0, 2)
-        for i in range(n_legacy):
-            n = random.randint(0, len(self.parent) - 1)
-            self.chromosome = self.chromosome[:n] + self.parent[n] + self.chromosome[n+1:]
+        n_legacy = random.randint(0, int(self.generation / 10))
+        count = 0
+        for i in range(len(self.chromosome)):
+            if self.parent[i] == 'a':
+                self.chromosome = self.chromosome[:i] + self.parent[i] + self.chromosome[i + 1:]
+                count += 1
+            if count == n_legacy:
+                break
 
     def generate(self):
         temp = ""
