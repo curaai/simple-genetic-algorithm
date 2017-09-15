@@ -14,14 +14,9 @@ class Gene:
         self.generate()
 
     def legacy(self):
-        n_legacy = random.randint(0, int(self.generation / 10))
-        count = 0
-        for i in range(len(self.chromosome)):
-            if self.parent[i] == 'a':
-                self.chromosome = self.chromosome[:i] + self.parent[i] + self.chromosome[i + 1:]
-                count += 1
-            if count == n_legacy:
-                break
+        start = random.randint(0, int(len(self.parent)) - 1)
+        end = random.randint(start, len(self.parent) - 1)
+        self.chromosome = self.chromosome[:start] + self.parent[start:end] + self.parent[end:]
 
     def generate(self):
         temp = ""
